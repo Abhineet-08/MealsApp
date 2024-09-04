@@ -7,17 +7,20 @@ import 'package:mealsapp/widgets/meal_item.dart';
 class MealsScreen extends StatelessWidget {
   const MealsScreen({
     super.key,
-     this.title,
+    this.title,
     required this.meals,
+    required this.onToggleFavourites,
   });
 
   final String? title;
   final List<Meal> meals;
+  final void Function(Meal meal) onToggleFavourites;
 
   void selectMeal(BuildContext context, Meal meal) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => MealDetailsScreen(
+          onToggleFavourites: onToggleFavourites,
           meal: meal,
         ),
       ),
@@ -33,15 +36,15 @@ class MealsScreen extends StatelessWidget {
           Text(
             'Uh oh ... nothing here!',
             style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
           ),
           const SizedBox(height: 16),
           Text(
             'Try selecting a different category!',
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
           ),
         ],
       ),
@@ -59,7 +62,7 @@ class MealsScreen extends StatelessWidget {
       );
     }
 
-    if(title == null) {
+    if (title == null) {
       return content;
     }
 
